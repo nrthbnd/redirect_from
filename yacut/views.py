@@ -25,19 +25,19 @@ def index_view():
     form = URLForm()
     if not form.validate_on_submit():
         return render_template('index.html', form=form)
-    if not form.short.data:
+    if not form.custom_id.data:
         short_string = get_unique_short_id()
-        form.short.data = short_string
-    if URLMap.query.filter_by(short=form.short.data).first() is not None:
+        form.custom_id.data = short_string
+    if URLMap.query.filter_by(short=form.custom_id.data).first():
         flash('Предложенный вариант короткой ссылки уже существует.')
         return render_template('index.html', form=form)
     new_link = URLMap(
-        original=form.original.data,
-        short=form.short.data
+        original=form.original_link.data,
+        short=form.custom_id.data
     )
     db.session.add(new_link)
     db.session.commit()
-    new_url = request.base_url + form.short.data
+    new_url = request.base_url + form.custom_id.data
     flash(Markup(f'Ваша ссылка: <a href="{new_url}">{new_url}</a>'))
     return render_template('index.html', form=form)
 
