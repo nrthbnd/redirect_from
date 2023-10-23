@@ -16,12 +16,12 @@
             {{ form.csrf_token }}
             <div>
               <div>
-                {{ form.original(class="form-control form-control-lg py-2 mb-3", placeholder=form.original.label.text) }}
+                {{ form.original_link(class="form-control form-control-lg py-2 mb-3", placeholder=form.original_link.label.text) }}
                 <!--input type="text" class="form-control form-control-lg py-2 mb-3" id="form-title" name=""
                   placeholder="Длинная ссылка"-->
                 <!--p><span style="color:red">Текст возможной ошибки</span></p-->
-                {% if form.original.errors %}
-                  {% for error in form.original.errors %}
+                {% if form.original_link.errors %}
+                  {% for error in form.original_link.errors %}
                     <span style="color: red">{{ error }}</span>
                   {% endfor %}
                 {% endif %}
@@ -29,10 +29,10 @@
               <div>
                 <!--input type="url" class="form-control form-control-lg py-2 mb-3" id="form-link" name=""
                   placeholder="Ваш вариант короткой ссылки"-->
-                {{ form.short(class="form-control form-control-lg py-2 mb-3", placeholder=form.short.label.text) }}
+                {{ form.custom_id(class="form-control form-control-lg py-2 mb-3", placeholder=form.custom_id.label.text) }}
                 <!--p><span style="color:red">Текст возможной ошибки</span></p-->
-                {% if form.short.errors %}
-                  {% for error in form.short.errors %}
+                {% if form.custom_id.errors %}
+                  {% for error in form.custom_id.errors %}
                     <span style="color: red">{{ error }}</span>
                   {% endfor %}
                 {% endif %}
