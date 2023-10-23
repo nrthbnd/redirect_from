@@ -12,7 +12,7 @@ from settings import LENGTH_OF_NEW_LINK
 def get_unique_short_id():
     """Генерация короткой ссылки."""
     short_string = ''.join(random.choices(
-        string.ascii_letters+string.digits, k=LENGTH_OF_NEW_LINK))
+        string.ascii_letters + string.digits, k=LENGTH_OF_NEW_LINK))
     if URLMap.query.filter_by(short=short_string).first() is None:
         return short_string
     else:

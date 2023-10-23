@@ -16,7 +16,7 @@ def get_urlmap(short_link):
     return jsonify({'url': urlmap.original}), 200
 
 
-@app.route('/api/id/',  methods=['POST'])
+@app.route('/api/id/', methods=['POST'])
 def add_urlmap():
     """Cоздание новой короткой ссылки."""
     data = request.get_json()

@@ -29,7 +29,7 @@ def validate_api_short_link(data):
     pattern = r'^[A-Za-z0-9_]{1,16}$'
     if not re.match(pattern, data['custom_id']):
         raise InvalidAPIUsage(
-                'Указано недопустимое имя для короткой ссылки')
+            'Указано недопустимое имя для короткой ссылки')
 
     if URLMap.query.filter_by(short=data['custom_id']).first():
         raise InvalidAPIUsage(
