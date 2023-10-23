@@ -14,6 +14,7 @@ class URLMap(db.Model):
     def to_dict(self):
         return dict(
             url=self.original,
+            short_link=self.short
         )
 
     # Метод-десериализатор для записи полученных данных в модель
