@@ -7,31 +7,30 @@ from .models import URLMap
 def validate_api_get_url(urlmap):
     """Проверка наличия запрашиваемой короткой ссылки."""
     if urlmap is None:
-        raise InvalidAPIUsage('Такой короткой ссылки не существует.', 404)
+        raise InvalidAPIUsage('Указанный id не найден', 404)
 
 
 def validate_api_body(data):
     """Проверка наличия тела запроса."""
     if not data:
         raise InvalidAPIUsage(
-            'Отсутствует тело запроса.')
+            'Отсутствует тело запроса', 400)
 
 
 def validate_api_data_url(data):
     """Проверка наличия поля с оригинальной ссылкой."""
     if 'url' not in data:
         raise InvalidAPIUsage(
-            'В запросе отсутствует обязательное поле url.')
+            '"url" является обязательным полем!', 400)
 
 
 def validate_api_short_link(data):
     """Проверка корректности создания короткой ссылки."""
-    if URLMap.query.filter_by(short=data['custom_id']).first() is not None:
+    pattern = r'^[A-Za-z0-9_]{1,16}$'
+    if not re.match(pattern, data['custom_id']):
         raise InvalidAPIUsage(
-            'Предложенный вариант короткой ссылки уже существует.')
+                'Указано недопустимое имя для короткой ссылки')
 
-    if 'custom_id' in data:
-        pattern = r'^[a-zA-Z0-9]+$'
-        if not re.match(pattern, data['custom_id']):
-            raise InvalidAPIUsage(
-                'Строка не соотвутствует шаблону [a-zA-Z0-9]{6}.')
+    if URLMap.query.filter_by(short=data['custom_id']).first():
+        raise InvalidAPIUsage(
+            'Предложенный вариант короткой ссылки уже существует.', 400)
