@@ -2,6 +2,7 @@ import os
 
 """Длина ссылки по умолчанию."""
 LENGTH_OF_NEW_LINK = 6
+LOCAL_HOST = 'http://localhost/'
 
 
 class Config(object):
