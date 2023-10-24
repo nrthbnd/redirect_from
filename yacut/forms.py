@@ -6,6 +6,7 @@ from settings import REGEX_PATTERN
 
 
 class URLForm(FlaskForm):
+    """Форма для создания короткой ссылки из оригинала."""
     original_link = URLField(
         'Длинная ссылка',
         validators=[DataRequired(message='Обязательное поле'),
