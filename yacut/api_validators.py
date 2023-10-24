@@ -33,7 +33,6 @@ def validate_api_data_url(data):
 
 def validate_api_short_link(data):
     """Проверка корректности создания короткой ссылки."""
-    # pattern = r'^[A-Za-z0-9_]{1,16}$'
     if not re.match(REGEX_PATTERN, data['custom_id']):
         raise InvalidAPIUsage(
             'Указано недопустимое имя для короткой ссылки')
