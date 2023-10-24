@@ -15,8 +15,7 @@ def get_unique_short_id():
         string.ascii_letters + string.digits, k=LENGTH_OF_NEW_LINK))
     if URLMap.query.filter_by(short=short_string).first() is None:
         return short_string
-    else:
-        return get_unique_short_id()
+    return get_unique_short_id()
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -46,8 +45,6 @@ def index_view():
 def redirect_view(short_string):
     """Функция для переадресации с короткой ссылки на оригинальную."""
     original_link = URLMap.query.filter_by(short=short_string).first()
-    # original_link = URLMap.query.get_or_404(short_string)
     if original_link is None:
         abort(404)
-    # return redirect(url_for(original_link))
     return redirect(original_link.original)
