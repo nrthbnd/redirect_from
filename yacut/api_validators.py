@@ -8,7 +8,7 @@ from .models import URLMap
 
 
 def validate_api_get_url(urlmap):
-    """Проверка наличия запрашиваемой короткой ссылки."""
+    """Проверить наличие запрашиваемой короткой ссылки."""
     if urlmap is None:
         raise InvalidAPIUsage(
             'Указанный id не найден',
@@ -16,7 +16,7 @@ def validate_api_get_url(urlmap):
 
 
 def validate_api_body(data):
-    """Проверка наличия тела запроса."""
+    """Проверить наличие тела запроса."""
     if not data:
         raise InvalidAPIUsage(
             'Отсутствует тело запроса',
@@ -24,7 +24,7 @@ def validate_api_body(data):
 
 
 def validate_api_data_url(data):
-    """Проверка наличия поля с оригинальной ссылкой."""
+    """Проверить наличие поля с оригинальной ссылкой."""
     if 'url' not in data:
         raise InvalidAPIUsage(
             '"url" является обязательным полем!',
@@ -32,7 +32,7 @@ def validate_api_data_url(data):
 
 
 def validate_api_short_link(data):
-    """Проверка корректности создания короткой ссылки."""
+    """Проверить корректность создания короткой ссылки."""
     if not re.match(REGEX_PATTERN, data['custom_id']):
         raise InvalidAPIUsage(
             'Указано недопустимое имя для короткой ссылки')
