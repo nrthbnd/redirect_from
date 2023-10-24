@@ -1,16 +1,19 @@
 import random
 import string
+from http import HTTPStatus
+
 from flask import abort, flash, redirect, render_template, request
 from markupsafe import Markup
+
+from settings import LENGTH_OF_NEW_LINK
 
 from . import app, db
 from .forms import URLForm
 from .models import URLMap
-from settings import LENGTH_OF_NEW_LINK
 
 
 def get_unique_short_id():
-    """Генерация короткой ссылки."""
+    """Сгенерировать короткую ссылку."""
     short_string = ''.join(random.choices(
         string.ascii_letters + string.digits, k=LENGTH_OF_NEW_LINK))
     if URLMap.query.filter_by(short=short_string).first() is None:
@@ -20,7 +23,7 @@ def get_unique_short_id():
 
 @app.route('/', methods=['GET', 'POST'])
 def index_view():
-    """Отображение главной страницы."""
+    """Отобразить главную страницу."""
     form = URLForm()
     if not form.validate_on_submit():
         return render_template('index.html', form=form)
@@ -43,8 +46,8 @@ def index_view():
 
 @app.route('/<string:short_string>')
 def redirect_view(short_string):
-    """Функция для переадресации с короткой ссылки на оригинальную."""
+    """Переадресовать с короткой ссылки на оригинальную."""
     original_link = URLMap.query.filter_by(short=short_string).first()
     if original_link is None:
-        abort(404)
+        abort(HTTPStatus.NOT_FOUND)
     return redirect(original_link.original)
