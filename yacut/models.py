@@ -10,15 +10,15 @@ class URLMap(db.Model):
     short = db.Column(db.String(16), nullable=False)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
-    # Метод для возвращения в словаре из модели оригинальной ссылки
     def to_dict(self):
+        """Вернуть оригинальную ссылку из модели в словаре."""
         return dict(
             url=self.original,
             short_link=self.short
         )
 
-    # Метод-десериализатор для записи полученных данных в модель
     def from_dict(self, data):
+        """Записать полученные данные в модель."""
         if 'url' in data:
             setattr(self, 'original', data['url'])
         if 'custom_id' not in data:
