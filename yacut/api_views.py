@@ -1,10 +1,11 @@
-from flask import jsonify, request
 from http import HTTPStatus
 
+from flask import jsonify, request
 from settings import LOCAL_HOST
+
 from . import app, db
-from .api_validators import (validate_api_get_url, validate_api_body,
-                             validate_api_data_url, validate_api_short_link)
+from .api_validators import (validate_api_body, validate_api_data_url,
+                             validate_api_get_url, validate_api_short_link)
 from .models import URLMap
 from .views import get_unique_short_id
 
