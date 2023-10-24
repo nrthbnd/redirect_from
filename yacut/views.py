@@ -47,7 +47,6 @@ def index_view():
 @app.route('/<string:short_string>')
 def redirect_view(short_string):
     """Переадресовать с короткой ссылки на оригинальную."""
-    original_link = URLMap.query.filter_by(short=short_string).first()
-    if original_link is None:
-        abort(HTTPStatus.NOT_FOUND)
-    return redirect(original_link.original)
+    return redirect(
+        URLMap.query.filter_by(short=short_string).first_or_404().original
+    )
