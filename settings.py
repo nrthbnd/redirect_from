@@ -3,6 +3,7 @@ import os
 """Длина ссылки по умолчанию."""
 LENGTH_OF_NEW_LINK = 6
 LOCAL_HOST = 'http://localhost/'
+REGEX_PATTERN = r'^[A-Za-z0-9_]{1,16}$'
 
 
 class Config(object):
