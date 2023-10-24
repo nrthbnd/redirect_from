@@ -1,4 +1,5 @@
 from flask import jsonify, request
+from http import HTTPStatus
 
 from settings import LOCAL_HOST
 from . import app, db
@@ -10,15 +11,15 @@ from .views import get_unique_short_id
 
 @app.route('/api/id/<string:short_link>/', methods=['GET'])
 def get_urlmap(short_link):
-    """Получение оригинальной ссылки по указанному короткому идентификатору."""
+    """Получить оригинальную ссылку по указанному короткому идентификатору."""
     urlmap = URLMap.query.filter_by(short=short_link).first()
     validate_api_get_url(urlmap)
-    return jsonify({'url': urlmap.original}), 200
+    return jsonify({'url': urlmap.original}), HTTPStatus.OK
 
 
 @app.route('/api/id/', methods=['POST'])
 def add_urlmap():
-    """Cоздание новой короткой ссылки."""
+    """Cоздать новую короткую ссылку."""
     data = request.get_json()
     validate_api_body(data)
     validate_api_data_url(data)
@@ -38,4 +39,4 @@ def add_urlmap():
     return jsonify(
         short_link=LOCAL_HOST + data['custom_id'],
         url=new_link.to_dict()['url']
-    ), 201
+    ), HTTPStatus.CREATED
